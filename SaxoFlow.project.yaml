@@ -1,0 +1,28 @@
+project:
+  name: fp_project
+  top: top
+  language: systemverilog
+  pdk: sky130
+  clock:
+    name: clk
+    period_ns: 10
+paths:
+  rtl: rtl/
+  tb: tb/
+  constraints: constraints/
+  build: .saxoflow/build
+flow:
+  profile: asic-sky130-default
+  stages:
+    - sim
+    - formal
+    - synth
+    - floorplan
+    - place
+    - cts
+    - route
+    - sta
+    - drc_lvs
+ai:
+  enable: true
+  provider: env

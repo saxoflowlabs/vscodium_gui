@@ -1,0 +1,82 @@
+{
+  "name": "saxoflow-vscode",
+  "displayName": "SaxoFlow GUI",
+  "publisher": "saxoflowlabs",
+  "version": "0.1.0",
+  "main": "./dist/extension.js",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "saxoflow.openDashboard",
+        "title": "SaxoFlow: Open Dashboard"
+      },
+      {
+        "command": "saxoflow.openToolShell",
+        "title": "SaxoFlow: Open Tool Shell"
+      },
+      {
+        "command": "saxoflow.openHostShell",
+        "title": "SaxoFlow: Open Host Shell"
+      },
+      {
+        "command": "saxoflow.quickActions",
+        "title": "SaxoFlow: Quick Actions"
+      },
+      {
+        "command": "saxoflow.newProject",
+        "title": "SaxoFlow: New Project (Wizard)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "saxoflowProjectView",
+          "name": "SaxoFlow Project"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SaxoFlow",
+      "properties": {
+        "saxoflow.pdkRoot": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to your **PDK root**. If empty, uses `PDK_ROOT` env.\n\nExamples:\n- Linux/WSL: `/home/you/pdk`\n- macOS: `/Users/you/pdk`\n- Windows: `C:\\\\pdk`",
+          "scope": "machine"
+        },
+        "saxoflow.toolImage": {
+          "type": "string",
+          "default": "ghcr.io/theopenroadproject/openroad:latest",
+          "markdownDescription": "Docker image for the **Tool Shell**. You can point this to a custom image with Yosys/OpenROAD/OpenSTA preinstalled.",
+          "scope": "machine"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "build": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "lint": "echo \"(lint todo)\"",
+    "test": "echo \"(no tests yet)\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.92.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@saxoflow/protocol": "workspace:*",
+    "yaml": "^2.8.1"
+  }
+}

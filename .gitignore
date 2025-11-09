@@ -1,0 +1,67 @@
+# Node/pnpm
+node_modules/
+.pnpm/
+.pnp.*
+*.tsbuildinfo
+
+# VSCode build output
+dist/
+out/
+*.vsix
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log
+*.log
+
+# macOS
+.DS_Store
+
+# OS generated
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# VSCode local settings
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Test coverage, jest, etc.
+coverage/
+coverage-final.json
+
+# Build artifacts
+*.tgz
+
+# Env and secrets
+.env*
+.envrc
+
+# Editor backups
+*~
+# Vim
+*.swp
+*.swo
+
+# Custom SaxoFlow and EDA artifacts (edit this as needed for large/auto-generated files)
+.saxoflow/
+build/
+.saxonflow-cache/
+artifacts/
+
+# Python cache (if running Python scripts)
+__pycache__/
+*.pyc
+
+# Ignore package manager locks (except pnpm-lock.yaml if wanted)
+package-lock.json
+yarn.lock
+
+# Ignore any temporary files from your environment/workflow
+tmp/
+temp/
