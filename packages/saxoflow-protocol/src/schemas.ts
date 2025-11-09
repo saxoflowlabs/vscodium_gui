@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 export const ProjectSchema = z.object({
@@ -25,7 +24,7 @@ export const ProjectSchema = z.object({
   ai: z.object({
     enable: z.boolean().default(false),
     provider: z.string().optional()
-  }).optional()
+  })  
 });
 
 export type ProjectConfig = z.infer<typeof ProjectSchema>;
