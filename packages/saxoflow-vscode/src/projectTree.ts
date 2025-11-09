@@ -3,12 +3,21 @@ import * as yaml from 'yaml';
 
 type Node = { label: string; resource?: vscode.Uri; collapsible?: vscode.TreeItemCollapsibleState };
 
-/** Project tree provider exported as a module symbol (so TS treats this file as a module). */
+/** Project tree provider exported as a module. */
 export class ProjectTreeProvider implements vscode.TreeDataProvider<Node> {
   private _onDidChangeTreeData = new vscode.EventEmitter<void>();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
   refresh() { this._onDidChangeTreeData.fire(); }
+
+  constructor(context: vscode.ExtensionContext) {
+    // Auto-refresh when config is saved or created
+    const watcher = vscode.workspace.createFileSystemWatcher('**/SaxoFlow.project.yaml');
+    watcher.onDidChange(() => this.refresh());
+    watcher.onDidCreate(() => this.refresh());
+    watcher.onDidDelete(() => this.refresh());
+    context.subscriptions.push(watcher);
+  }
 
   getTreeItem(e: Node): vscode.TreeItem {
     const item = new vscode.TreeItem(e.label, e.collapsible ?? vscode.TreeItemCollapsibleState.None);
@@ -48,7 +57,7 @@ export class ProjectTreeProvider implements vscode.TreeDataProvider<Node> {
     }
 
     const paths = cfg?.paths || { rtl: 'rtl/', tb: 'tb/', constraints: 'constraints/', build: '.saxoflow/build' };
-    const map: Record<string,string> = {
+    const map: Record<string, string> = {
       'rtl': paths.rtl,
       'testbenches': paths.tb || 'tb/',
       'constraints': paths.constraints || 'constraints/',
@@ -67,5 +76,5 @@ export class ProjectTreeProvider implements vscode.TreeDataProvider<Node> {
   }
 }
 
-/* Force module-ness even if someone later removes the export by accident. */
+// Module "force"
 export {};

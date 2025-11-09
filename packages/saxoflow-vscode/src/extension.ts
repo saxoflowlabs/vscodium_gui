@@ -6,14 +6,14 @@ import { activateDiagnostics } from './diagnostics';
 
 /* ---------------------- Activate / Deactivate ---------------------- */
 export function activate(context: vscode.ExtensionContext) {
-   console.log('[SaxoFlow] activate() called');
+  console.log('[SaxoFlow] activate() called');
   // Commands
   context.subscriptions.push(
-    vscode.commands.registerCommand('saxoflow.openDashboard', () => openDashboard()),
-    vscode.commands.registerCommand('saxoflow.openToolShell', () => openToolShell()),
-    vscode.commands.registerCommand('saxoflow.openHostShell', () => openHostShell()),
+    vscode.commands.registerCommand('saxoflow.openDashboard', openDashboard),
+    vscode.commands.registerCommand('saxoflow.openToolShell', openToolShell),
+    vscode.commands.registerCommand('saxoflow.openHostShell', openHostShell),
     vscode.commands.registerCommand('saxoflow.newProject', () => runNewProjectWizard(context)),
-    vscode.commands.registerCommand('saxoflow.quickActions', () => quickActions())
+    vscode.commands.registerCommand('saxoflow.quickActions', quickActions)
   );
 
   // Status bar with quick actions
@@ -24,10 +24,12 @@ export function activate(context: vscode.ExtensionContext) {
   sb.show();
   context.subscriptions.push(sb);
 
-  // Project tree
-  const tree = new ProjectTreeProvider();
+  // Project tree with context for watcher/refresh
+  const tree = new ProjectTreeProvider(context);
   vscode.window.registerTreeDataProvider('saxoflowProjectView', tree);
-  context.subscriptions.push(vscode.commands.registerCommand('saxoflow.refreshProject', () => tree.refresh()));
+  context.subscriptions.push(
+    vscode.commands.registerCommand('saxoflow.refreshProject', () => tree.refresh())
+  );
 
   // Diagnostics (validate SaxoFlow.project.yaml)
   activateDiagnostics(context);

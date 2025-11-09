@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SaxoFlow Project Config",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "properties": {
+        "name":       { "type": "string" },
+        "top":        { "type": "string" },
+        "language":   { "type": "string", "enum": ["verilog", "systemverilog"] },
+        "pdk":        { "type": "string" },
+        "clock": {
+          "type": "object",
+          "properties": {
+            "name":      { "type": "string" },
+            "period_ns": { "type": "number" }
+          },
+          "required": ["name", "period_ns"]
+        }
+      },
+      "required": ["name", "top", "language", "pdk", "clock"]
+    },
+    "paths": {
+      "type": "object",
+      "properties": {
+        "rtl":         { "type": "string" },
+        "tb":          { "type": "string" },
+        "constraints": { "type": "string" },
+        "build":       { "type": "string" }
+      },
+      "required": ["rtl", "tb", "constraints", "build"]
+    },
+    "flow": {
+      "type": "object",
+      "properties": {
+        "profile": { "type": "string" },
+        "stages": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["profile", "stages"]
+    },
+    "ai": {
+      "type": "object",
+      "properties": {
+        "enable":   { "type": "boolean" },
+        "provider": { "type": "string" }
+      }
+    }
+  },
+  "required": ["project", "paths", "flow", "ai"]
+}
