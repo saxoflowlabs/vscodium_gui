@@ -4,6 +4,7 @@
   "publisher": "saxoflowlabs",
   "version": "0.1.0",
   "main": "./dist/extension.js",
+  "packageManager": "pnpm@9.0.0",
   "engines": {
     "vscode": "^1.92.0"
   },

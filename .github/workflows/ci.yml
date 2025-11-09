@@ -1,4 +1,3 @@
-
 name: CI
 on:
   push:
@@ -8,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 9 }
+      - uses: pnpm/action-setup@v4    # No `with:` and no version here
       - uses: actions/setup-node@v4
         with:
           node-version: 18
